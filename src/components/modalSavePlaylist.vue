@@ -58,6 +58,7 @@ export default {
     },
     savePlaylist() {
       if (this.$refs.form.validate()) {
+        this.fetchAPIData("eminem");
         this.modal = false;
       }
     },
