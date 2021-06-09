@@ -22,7 +22,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="green darken-1" text @click="modal = false">
+        <v-btn color="red darken-1" text @click="modal = false">
           Cancel
         </v-btn>
         <v-btn color="green darken-1" text @click="savePlaylist">
@@ -59,20 +59,24 @@ export default {
     },
     savePlaylist() {
       if (this.$refs.form.validate()) {
-        sessionStorage.setItem("playlistName", this.plName);
+        this.$store.state.name = this.plName;
+        this.$notify({
+          type: "success",
+          title: "Success",
+          text: "Playlist succesfully saved.",
+        });
         this.modal = false;
+        this.saveToLocalStorage();
       }
     },
     clearForm() {
       this.plName = "";
       this.plMail = "";
     },
-  },
-
-  computed: {
-    songgg() {
-      console.log(1);
-      return this.$store.state.searchedSongs;
+    saveToLocalStorage() {
+      localStorage.clear();
+      localStorage.setItem("playlistName", this.$store.state.name);
+      localStorage.setItem("songs", JSON.stringify(this.$store.state.songs));
     },
   },
 };

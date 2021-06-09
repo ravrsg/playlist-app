@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <v-app>
-      <v-app-bar app
+    <v-app :style="{ background: $vuetify.theme.themes[theme].background }">
+      <v-app-bar app color="secondary"
         ><div>
           <v-tooltip v-if="!$vuetify.theme.dark" bottom>
             <template v-slot:activator="{ on }">
@@ -30,7 +30,7 @@
               <songs></songs>
             </v-col>
           </v-row>
-          <v-btn fixed right bottom @click="openModal"
+          <v-btn color="button" fixed right bottom @click="openModal"
             >Save
             <v-icon>mdi-cloud-download</v-icon>
           </v-btn>
@@ -38,6 +38,7 @@
       </v-main>
     </v-app>
     <modalSavePlaylist ref="modalSavePlaylist"></modalSavePlaylist>
+    <notifications />
   </div>
 </template>
 
@@ -51,6 +52,11 @@ export default {
     playlist: playlist,
     songs: songs,
     modalSavePlaylist: modalSavePlaylist,
+  },
+  computed: {
+    theme() {
+      return this.$vuetify.theme.dark ? "dark" : "light";
+    },
   },
   data() {
     return {
@@ -67,6 +73,12 @@ export default {
     darkMode() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
+  },
+  mounted() {
+    if (localStorage.length > 0) {
+      this.$store.state.name = localStorage.getItem("playlistName");
+      this.$store.state.songs = JSON.parse(window.localStorage.getItem("songs"));
+    }
   },
 };
 </script>

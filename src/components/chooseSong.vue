@@ -1,15 +1,15 @@
 <template>
-  <v-card elevation="2" min-height="70vh">
+  <v-card elevation="2" min-height="70vh" color="primary">
     <v-row>
       <v-col cols="12" md="10">
         <v-text-field v-model="search" label="Search" class="mx-4"></v-text-field>
       </v-col>
       <v-col cols="12" md="2">
-        <v-btn @click="searchAPI()">SEARCH</v-btn>
+        <v-btn color="button" @click="searchAPI()">SEARCH</v-btn>
       </v-col>
     </v-row>
     <song :songs="songs" :showMore="showMore"></song>
-    <v-btn v-if="songs.length > 0 && !showMore" @click="showMore = true">More</v-btn>
+    <v-btn color="button" v-if="songs.length > 0 && !showMore" @click="showMore = true">More</v-btn>
   </v-card>
 </template>
 
@@ -35,7 +35,11 @@ export default {
       var ret = [];
       const entries = Object.entries(tab);
       if (entries[0][0] === "error") {
-        alert("nieudane połączenie z API. spróbuj ponownie");
+        this.$notify({
+          type: "error",
+          title: "Error",
+          text: "Can't connect to API. Try again.",
+        });
       } else {
         entries[0][1].forEach((el) => {
           ret.push({ img: el.album.cover, title: el.album.title, artist: el.artist.name });

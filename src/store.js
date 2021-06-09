@@ -6,6 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     searchedSongs: {},
+    songs: [],
+    name: "Your unsaved playlist",
   },
   actions: {
     fetchAPIData({ commit }, q) {
@@ -13,7 +15,7 @@ export default new Vuex.Store({
         method: "GET",
         mode: "cors",
         headers: {
-          "x-rapidapi-key": "0336a60903mshfaec923400988fcp191410jsn0127ccd85343",
+          "x-rapidapi-key": "",
           "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
         },
       })

@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="2" min-height="70vh">
+  <v-card elevation="2" min-height="70vh" color="primary">
     <v-card-title>
       {{ name }}
     </v-card-title>
@@ -22,21 +22,27 @@ export default {
     "song-list": songList,
   },
   computed: {
+    songs() {
+      return this.$store.state.songs;
+    },
     name() {
-      return sessionStorage.length > 0 ? sessionStorage.playlistName : "Your unsaved playlist";
+      return this.$store.state.name;
     },
   },
   data() {
-    return {
-      songs: [],
-    };
+    return {};
   },
   created() {
     bus.$on("addedSong", (data) => {
       if (this.songs.length >= 5) {
-        alert("można dodać masymalnie 5 piosenek");
+        this.$notify({
+          type: "warn",
+          position: "top center",
+          title: "Warning!",
+          text: "You can only add 5 songs to Your playlist.",
+        });
       } else {
-        this.songs.push(data);
+        this.$store.state.songs.push(data);
       }
     });
   },

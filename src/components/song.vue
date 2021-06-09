@@ -2,7 +2,7 @@
   <div style="padding-left: 50px">
     <div v-if="!showMore">
       <div v-for="(song, index) in songs" :key="index">
-        <table v-if="index < 5" @click="addSong(song)">
+        <table v-if="index < 5" @click="addSong(song)" class="pointer">
           <thead>
             <tr>
               <th colspan="2" rowspan="2">
@@ -19,7 +19,7 @@
     </div>
     <div v-else>
       <div v-for="(song, index) in songs" :key="index">
-        <table @click="addSong(song)">
+        <table @click="addSong(song)" class="pointer">
           <thead>
             <tr>
               <th colspan="2" rowspan="2">
@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style scoped>
-.if-shown {
-  display: none;
+.pointer {
+  cursor: pointer;
 }
 </style>

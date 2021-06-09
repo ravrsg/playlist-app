@@ -5,7 +5,8 @@ import App from "./App.vue";
 import store from "./store.js";
 import mdiVue from "mdi-vue/v2";
 import * as mdijs from "@mdi/js";
-
+import Notifications from "vue-notification";
+Vue.use(Notifications);
 Vue.use(mdiVue, {
   icons: mdijs,
 });
