@@ -1,7 +1,7 @@
 <template>
-  <v-card elevation="2" height="70vh">
+  <v-card elevation="2" min-height="70vh">
     <v-card-title>
-      Your playlist
+      {{ name }}
     </v-card-title>
     <v-card-text>
       <div v-if="songs.length === 0">
@@ -16,24 +16,29 @@
 
 <script>
 import songList from "./songList";
+import { bus } from "../main";
 export default {
   components: {
     "song-list": songList,
   },
+  computed: {
+    name() {
+      return sessionStorage.length > 0 ? sessionStorage.playlistName : "Your unsaved playlist";
+    },
+  },
   data() {
     return {
-      songs: [
-        {
-          title: "s",
-        },
-      ],
+      songs: [],
     };
   },
-  watch: {
-    songs() {
-      console.log(this.songs.length);
-      this.$emit("updateSongs", this.songs.length);
-    },
+  created() {
+    bus.$on("addedSong", (data) => {
+      if (this.songs.length >= 5) {
+        alert("można dodać masymalnie 5 piosenek");
+      } else {
+        this.songs.push(data);
+      }
+    });
   },
 };
 </script>

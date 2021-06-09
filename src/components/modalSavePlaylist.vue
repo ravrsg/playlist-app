@@ -41,6 +41,7 @@ export default {
       plName: "",
       plMail: "",
       minLength: 3,
+      datas: [],
       rules: {
         required: (value) => !!value || "Required.",
         counter: (value) => value.length >= this.minLength || "Min length for this field is: " + this.minLength,
@@ -58,13 +59,20 @@ export default {
     },
     savePlaylist() {
       if (this.$refs.form.validate()) {
-        this.fetchAPIData("eminem");
+        sessionStorage.setItem("playlistName", this.plName);
         this.modal = false;
       }
     },
     clearForm() {
       this.plName = "";
       this.plMail = "";
+    },
+  },
+
+  computed: {
+    songgg() {
+      console.log(1);
+      return this.$store.state.searchedSongs;
     },
   },
 };

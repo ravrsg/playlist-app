@@ -1,12 +1,30 @@
 <template>
   <div id="app">
     <v-app>
-      <v-app-bar app> b</v-app-bar>
+      <v-app-bar app
+        ><div>
+          <v-tooltip v-if="!$vuetify.theme.dark" bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn v-on="on" color="info" small @click="darkMode">
+                Dark Mode On
+              </v-btn>
+            </template>
+          </v-tooltip>
+
+          <v-tooltip v-else bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn v-on="on" color="info" small @click="darkMode">
+                Dark Mode Off
+              </v-btn>
+            </template>
+          </v-tooltip>
+        </div></v-app-bar
+      >
       <v-main>
         <v-container fluid>
           <v-row>
             <v-col cols="12" lg="5">
-              <playlist @updateSongs="checkSaveBtn"></playlist>
+              <playlist></playlist>
             </v-col>
             <v-col cols="12" lg="7">
               <songs></songs>
@@ -45,6 +63,9 @@ export default {
     },
     openModal() {
       this.$refs.modalSavePlaylist.openModal();
+    },
+    darkMode() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
   },
 };
