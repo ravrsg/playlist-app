@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="2" min-height="70vh" color="primary">
+  <v-card elevation="2" class="scrollOnlyY" height="70vh" color="primary">
     <v-row>
       <v-col cols="12" md="10">
         <v-text-field v-model="search" label="Search" class="mx-4"></v-text-field>
@@ -51,4 +51,22 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.scrollOnlyY {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 10px;
+}
+</style>
