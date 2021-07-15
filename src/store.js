@@ -10,12 +10,12 @@ export default new Vuex.Store({
     name: "Your unsaved playlist",
   },
   actions: {
-    fetchAPIData({ commit }, q) {
-      fetch("https://deezerdevs-deezer.p.rapidapi.com/search?q=" + q, {
+    async fetchAPIData({ commit }, q) {
+      await fetch("https://deezerdevs-deezer.p.rapidapi.com/search?q=" + q, {
         method: "GET",
         mode: "cors",
         headers: {
-          "x-rapidapi-key": "",
+          "x-rapidapi-key": "0336a60903mshfaec923400988fcp191410jsn0127ccd85343",
           "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
         },
       })
@@ -25,17 +25,35 @@ export default new Vuex.Store({
         .then((data) => {
           commit("setSongs", data);
         });
-
-      return new Promise((resolve, reject) => {
-        this.resolvePromise = resolve;
-        this.rejectPromise = reject;
-      });
+    },
+    doPlaylistName({ commit }, q) {
+      commit("setPlaylistName", q);
+    },
+    newSong({ commit }, q) {
+      commit("addSong", q);
+    },
+    removeSong({ commit }, q) {
+      commit("deleteSong", q);
+    },
+    songsFromLocalStorage({ commit }, q) {
+      commit("setSongsLocalStorage", q);
     },
   },
   mutations: {
     setSongs(state, data) {
       state.searchedSongs = data;
-      this.resolvePromise(true);
+    },
+    setSongsLocalStorage(state, data) {
+      state.songs = data;
+    },
+    setPlaylistName(state, name) {
+      state.name = name;
+    },
+    addSong(state, song) {
+      state.songs.push(song);
+    },
+    deleteSong(state, index) {
+      state.songs.splice(index, 1);
     },
   },
 });

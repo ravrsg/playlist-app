@@ -59,7 +59,7 @@ export default {
     },
     savePlaylist() {
       if (this.$refs.form.validate()) {
-        this.$store.state.name = this.plName;
+        this.$store.dispatch("doPlaylistName", this.plName);
         this.$notify({
           type: "success",
           title: "Success",

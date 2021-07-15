@@ -64,9 +64,6 @@ export default {
     };
   },
   methods: {
-    checkSaveBtn(s) {
-      this.showSaveBtn = s > 0 ? true : false;
-    },
     openModal() {
       this.$refs.modalSavePlaylist.openModal();
     },
@@ -75,9 +72,13 @@ export default {
     },
   },
   mounted() {
-    if (localStorage.length > 0) {
-      this.$store.state.name = localStorage.getItem("playlistName");
-      this.$store.state.songs = JSON.parse(window.localStorage.getItem("songs"));
+    if (
+      localStorage.length > 0 &&
+      localStorage.getItem("playlistName") !== null &&
+      localStorage.getItem("songs") !== null
+    ) {
+      this.$store.dispatch("doPlaylistName", localStorage.getItem("playlistName"));
+      this.$store.dispatch("songsFromLocalStorage", JSON.parse(localStorage.getItem("songs")));
     }
   },
 };

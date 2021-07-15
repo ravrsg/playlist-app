@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     removeSong(index) {
-      this.$store.state.songs.splice(index, 1);
+      this.$store.dispatch("removeSong", index);
     },
   },
 };

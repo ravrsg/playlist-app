@@ -42,7 +42,7 @@ export default {
           text: "You can only add 5 songs to Your playlist.",
         });
       } else {
-        this.$store.state.songs.push(data);
+        this.$store.dispatch("newSong", data);
       }
     });
   },
